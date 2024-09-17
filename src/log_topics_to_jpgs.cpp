@@ -78,13 +78,6 @@ void LogTopicsToJPGs::callback(const std::string& name_actor, const std::shared_
 
 } // namespace mess2_logger_cpp
 
-/**
- * @brief Main function to initialize and run the ROS 2 node.
- * 
- * @param argc Number of command-line arguments.
- * @param argv Command-line arguments.
- * @return int Exit status.
- */
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
