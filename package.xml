@@ -4,7 +4,7 @@
   <name>mess2_logger_cpp</name>
   <version>0.0.0</version>
   <description>ROS2 package for logging image messages on topics directly to .jpg files.</description>
-  <maintainer email="mjnelson@wpi.edu">marinarasauced</maintainer>
+  <maintainer email="marinarasauced@outlook.com">marinarasauced</maintainer>
   <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
