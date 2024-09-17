@@ -16,7 +16,6 @@ find_package(sensor_msgs REQUIRED)
 include_directories(
   include
   ${rclcpp_INCLUDE_DIRS}
-  ${sensor_msgs_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
 )
