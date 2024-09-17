@@ -33,7 +33,7 @@ public:
     LogTopicsToJPGs();
 
 private:
-    void callback(std::shared_ptr<sensor_msgs::msg::Image> msg, const std::string& name_actor);
+    void callback(const std::string& name_actor, const std::shared_ptr<sensor_msgs::msg::Image> msg);
 
     std::string dir_logs_;
     std::vector<std::string> dirs_sub_;

@@ -39,12 +39,12 @@ install(
 
 install(
   DIRECTORY launch/
-  DESTINATION lib/launch
+  DESTINATION share/${PROJECT_NAME}/launch
 )
 
 install(
   DIRECTORY config/
-  DESTINATION lib/config
+  DESTINATION share/${PROJECT_NAME}/config
 )
 
 install(

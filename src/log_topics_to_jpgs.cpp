@@ -33,7 +33,6 @@ LogTopicsToJPGs::LogTopicsToJPGs() : Node("log_topics_to_jpgs")
     for (const auto& name_actor : names_actors_) {
         auto path_jpg = path_log_ / name_actor / "images";
         if (!fs::exists(path_jpg)) {
-            RCLCPP_INFO(this->get_logger(), "%s", path_jpg.c_str());
             fs::create_directories(path_jpg);
         }
 
@@ -55,22 +54,23 @@ LogTopicsToJPGs::LogTopicsToJPGs() : Node("log_topics_to_jpgs")
     }
 
     // create subscription for each topic
-    for (size_t iter = 0; iter < topics_.size(); ++iter) {
-        const auto& topic = topics_[iter];
-        const auto& name_actor = names_actors_[iter];
-        auto subscription = create_subscription<sensor_msgs::msg::Image>(
-            topic, 10, [this, name_actor](const sensor_msgs::msg::Image::SharedPtr msg) {
-                this->callback(msg, name_actor);
-            }
-        );
+    for (int64_t iter = 0; iter < static_cast<int64_t>(topics_.size()); ++iter) {
+        const std::string& topic = topics_[iter];
+        const std::string& name_actor = names_actors_[iter];
+
+        rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscription = this->create_subscription<sensor_msgs::msg::Image>(topic, 10, [this, name_actor](const std::shared_ptr<sensor_msgs::msg::Image> msg) { this->callback(name_actor, msg); });
+
         loggers_[topic] = subscription;
     }
 };
 
 /**
+ * @brief Callback function to process incoming image messages and save them as .jpg files.
  * 
+ * @param name_actor The name of the actor associated with the topic.
+ * @param msg The image message received from the subscription.
  */
-void LogTopicsToJPGs::callback(const sensor_msgs::msg::Image::SharedPtr msg, const std::string& name_actor){
+void LogTopicsToJPGs::callback(const std::string& name_actor, const std::shared_ptr<sensor_msgs::msg::Image> msg){
     try {
         cv_bridge::CvImagePtr cv_ptr;
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::MONO8);
@@ -82,8 +82,6 @@ void LogTopicsToJPGs::callback(const sensor_msgs::msg::Image::SharedPtr msg, con
 
         cv::imwrite(name_file.str(), cv_ptr->image);
 
-        RCLCPP_INFO(this->get_logger(), "Saved image file: %s", name_file.str().c_str());
-
     } catch (const cv_bridge::Exception& e) {
         //
     }
@@ -92,7 +90,11 @@ void LogTopicsToJPGs::callback(const sensor_msgs::msg::Image::SharedPtr msg, con
 } // namespace mess2_logger_cpp
 
 /**
+ * @brief Main function to initialize and run the ROS 2 node.
  * 
+ * @param argc Number of command-line arguments.
+ * @param argv Command-line arguments.
+ * @return int Exit status.
  */
 int main(int argc, char **argv)
 {
