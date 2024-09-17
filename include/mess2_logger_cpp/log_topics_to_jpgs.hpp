@@ -27,17 +27,23 @@
 namespace fs = boost::filesystem;
 namespace mess2_logger_cpp
 {
-/**
- * @brief A class to log multiple ROS2 topics of image msgs to log .jpg files.
- * 
- * This class initializes logger instances for specific ROS2 topics with sensor_msgs::msg::Image msg types. It supports dynamic subscription creation from a parameter list of topics.
- */
 class LogTopicsToJPGs : public rclcpp::Node
 {
 public:
+    /**
+     * @brief A class to log multiple ROS2 topics of image msgs to log .jpg files.
+     * 
+     * This class initializes logger instances for specific ROS2 topics with sensor_msgs::msg::Image msg types. It supports dynamic subscription creation from a parameter list of topics.
+     */
     LogTopicsToJPGs();
 
 private:
+    /**
+     * @brief Callback function to process incoming image messages and save them as .jpg files.
+     * 
+     * @param name_actor The name of the actor associated with the topic.
+     * @param msg The image message received from the subscription.
+     */
     void callback(const std::string& name_actor, const std::shared_ptr<sensor_msgs::msg::Image> msg);
 
     std::string dir_logs_;
