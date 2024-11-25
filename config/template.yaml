@@ -1,11 +1,9 @@
 /**:
   ros__parameters:
-    dir_logs: "Projets/testing"
+    dir_logs: "Desktop/logs"
     dirs_sub:
       - "flir"
     names_actors:
-      - "flir1"
       - "flir2"
     topics:
-      - "/mess2/flir1/image_raw"
-      - "/mess2/flir2/image_raw"
+      - "/flir2/image_raw"

@@ -19,7 +19,7 @@
 
 #include </usr/include/boost/filesystem.hpp>
 #include </usr/include/opencv4/opencv2/opencv.hpp>
-#include <cv_bridge/cv_bridge.hpp>
+#include </opt/ros/humble/include/cv_bridge/cv_bridge/cv_bridge.h>
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"

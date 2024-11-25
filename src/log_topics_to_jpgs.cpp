@@ -7,10 +7,10 @@ namespace mess2_logger_cpp
 LogTopicsToJPGs::LogTopicsToJPGs() : Node("log_topics_to_jpgs")
 {
     // declare parameters
-    this->declare_parameter("dir_logs", "Projets/testing");
-    this->declare_parameter("dirs_sub", std::vector<std::string>{"actor"});
-    this->declare_parameter("names_actors", std::vector<std::string>{"flir1", "flir2"});
-    this->declare_parameter("topics", std::vector<std::string>{"/topic1", "/topic2"});
+    this->declare_parameter("dir_logs", "Desktop/logs");
+    this->declare_parameter("dirs_sub", std::vector<std::string>{"flir"});
+    this->declare_parameter("names_actors", std::vector<std::string>{"flir2"});
+    this->declare_parameter("topics", std::vector<std::string>{"/flir2/image_raw"});
 
     // retrieve parameters
     this->get_parameter("dir_logs", dir_logs_);
@@ -62,12 +62,12 @@ LogTopicsToJPGs::LogTopicsToJPGs() : Node("log_topics_to_jpgs")
 void LogTopicsToJPGs::callback(const std::string& name_actor, const std::shared_ptr<sensor_msgs::msg::Image> msg){
     try {
         cv_bridge::CvImagePtr cv_ptr;
-        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::MONO8);
+        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::MONO16);
 
         rclcpp::Time stamp_time = msg->header.stamp;
         std::ostringstream name_file;
         name_file << path_log_.string() << "/" << name_actor << "/" << "images" << "/";
-        name_file << name_actor << "_" << std::setw(10) << std::setfill('0') << stamp_time.nanoseconds() << ".jpg";
+        name_file << name_actor << "_" << std::setw(10) << std::setfill('0') << stamp_time.nanoseconds() << ".tiff";
 
         cv::imwrite(name_file.str(), cv_ptr->image);
 
