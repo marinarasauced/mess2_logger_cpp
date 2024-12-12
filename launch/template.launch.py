@@ -13,6 +13,11 @@ def generate_launch_description():
             "file_config", 
             default_value=mess2_logger_cpp_parameters, 
             description="path to the configuration file"),
+        DeclareLaunchArgument(
+            name="dir_logs",
+            default_value="Desktop/logs",
+            description="relative path from home to the location at which subdirs will be created for each camera"
+        ),
         Node(
             package="mess2_logger_cpp",
             executable="log_topics_to_jpgs",

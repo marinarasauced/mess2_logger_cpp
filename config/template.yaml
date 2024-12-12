@@ -1,9 +1,23 @@
 /**:
   ros__parameters:
-    dir_logs: "Desktop/logs"
+    # dir_logs: "Desktop/logs"
     dirs_sub:
       - "flir"
     names_actors:
+      - "flir1"
       - "flir2"
+      - "flir3"
+      - "flir4"
+      - "flir5"
+      - "flir6"
+      - "flir7"
+      - "flir8"
     topics:
+      - "/flir1/image_raw"
       - "/flir2/image_raw"
+      - "/flir3/image_raw"
+      - "/flir4/image_raw"
+      - "/flir5/image_raw"
+      - "/flir6/image_raw"
+      - "/flir7/image_raw"
+      - "/flir8/image_raw"
