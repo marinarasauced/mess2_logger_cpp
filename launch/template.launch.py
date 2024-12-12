@@ -23,6 +23,6 @@ def generate_launch_description():
             executable="log_topics_to_jpgs",
             name="log_topics_to_jpgs",
             output="screen",
-            parameters=[LaunchConfiguration("file_config")]
+            parameters=[LaunchConfiguration("file_config"), LaunchConfiguration("dir_logs")]
         ),
     ])
